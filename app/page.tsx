@@ -2,11 +2,20 @@ import Link from "next/link";
 
 const tools = [
   {
+    icon: "🤖",
+    title: "Dean 的工作状态",
+    desc: "实时查看 AI 助手在干什么 — 像素画像素风",
+    href: "/workspace",
+    ready: true,
+    badge: "LIVE",
+  },
+  {
     icon: "🔍",
     title: "Smart Money Tracker",
     desc: "实时追踪 Solana 聪明钱钱包动向",
     href: "/smart-money",
-    ready: true,
+    ready: false,
+    badge: null,
   },
   {
     icon: "📊",
@@ -14,13 +23,7 @@ const tools = [
     desc: "Pump.fun 毕业代币数据分析",
     href: "/tokens",
     ready: false,
-  },
-  {
-    icon: "🤖",
-    title: "AI Contract Audit",
-    desc: "智能合约安全分析",
-    href: "/audit",
-    ready: false,
+    badge: null,
   },
   {
     icon: "📰",
@@ -28,6 +31,7 @@ const tools = [
     desc: "每日 Web3 要闻摘要",
     href: "/news",
     ready: false,
+    badge: null,
   },
 ];
 
@@ -69,10 +73,15 @@ export default function Home() {
                   : "border-gray-800 bg-gray-900/50 opacity-60"
               }`}
             >
-              {tool.ready ? (
-                <Link href={tool.href} className="absolute inset-0" />
-              ) : null}
-              <div className="text-3xl mb-3">{tool.icon}</div>
+              {tool.ready ? <Link href={tool.href} className="absolute inset-0" /> : null}
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-3xl">{tool.icon}</span>
+                {tool.badge && (
+                  <span className="text-xs bg-emerald-900 text-emerald-300 border border-emerald-700 rounded-full px-2 py-0.5 font-mono">
+                    {tool.badge}
+                  </span>
+                )}
+              </div>
               <h3 className="font-semibold text-lg mb-1">{tool.title}</h3>
               <p className="text-gray-400 text-sm">{tool.desc}</p>
               {!tool.ready && (
