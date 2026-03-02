@@ -5,6 +5,17 @@ import path from 'path'
 // 状态文件路径（本地存储）
 const STATUS_FILE = path.join(process.cwd(), 'dean-status.json')
 
+// Vercel KV binding
+type KVNamespace = {
+  get: (key: string) => Promise<string | null>
+}
+
+declare global {
+  var edenlabStatusKV: KVNamespace
+}
+
+const kv = (globalThis as any).edenlabStatusKV
+
 export const revalidate = 0
 
 // 初始化状态文件
@@ -22,27 +33,62 @@ async function ensureStatusFile() {
   }
 }
 
-export async function GET() {
+// 从本地文件读取
+async function getStatusFromFile() {
   await ensureStatusFile()
 
   try {
     const data = await fs.readFile(STATUS_FILE, 'utf-8')
-    return NextResponse.json(JSON.parse(data), {
-      headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' }
-    })
+    return JSON.parse(data)
   } catch (e) {
     const response = {
       state: 'idle',
       message: '等待命令...',
       updatedAt: new Date().toISOString()
     }
-    return NextResponse.json(response, {
-      headers: { 'Cache-Control': 'no-store' }
-    })
+    return response
   }
 }
 
+// 从 Vercel KV 读取
+async function getStatusFromKV() {
+  try {
+    if (!kv) {
+      // KV 不可用，降级到本地文件
+      console.warn('KV not available, falling back to local file')
+      return await getStatusFromFile()
+    }
+
+    const data = await kv.get('edenlab_status')
+    if (!data) {
+      // KV 中没有数据，返回默认状态
+      return {
+        state: 'idle',
+        message: '等待命令...',
+        updatedAt: new Date().toISOString()
+      }
+    }
+
+    return JSON.parse(data)
+  } catch (error) {
+    console.error('Error reading from KV:', error)
+    // 出错时降级到本地文件
+    return await getStatusFromFile()
+  }
+}
+
+export async function GET() {
+  // 优先从 KV 读取（云端），降级到本地文件（开发环境）
+  const status = await getStatusFromKV()
+
+  return NextResponse.json(status, {
+    headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' }
+  })
+}
+
 export async function POST(req: Request) {
+  // POST 请求已经迁移到 /api/update-status
+  // 为了向后兼容，这里继续支持本地文件更新
   await ensureStatusFile()
 
   try {
