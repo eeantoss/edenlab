@@ -50,7 +50,7 @@ export default function Home() {
 
       <section className="px-6 py-20 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          东之伊甸的{" "}
+          Oscar 的{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
             AI & Web3
           </span>{" "}
@@ -95,7 +95,7 @@ export default function Home() {
       </section>
 
       <footer className="border-t border-gray-800 px-6 py-6 text-center text-gray-600 text-sm">
-        © 2026 EdenLab · Built by 东之伊甸
+        © 2026 EdenLab · Built by Oscar
       </footer>
     </main>
   );
