@@ -1,3 +1,61 @@
+# EdenLab
+
+> Oscar 的 AI & Web3 工具站
+
+一个集成了 AI 工具、Web3 数据分析和可视化的一站式平台。
+
+## ✨ 功能
+
+- 🕹️ **Dean 的工作状态** - 实时查看 AI 助手在干什么
+- 📊 **Token Analytics** - Pump.fun 毕业代币数据分析
+- 🔍 **Smart Money Tracker** - Solana 聪明钱钱包动向（即将上线）
+- 📰 **Web3 Daily** - 每日 Web3 要闻摘要（即将上线）
+
+## 🚀 快速开始
+
+### 本地开发
+
+1. **克隆仓库**
+```bash
+git clone https://github.com/eeantoss/edenlab.git
+cd edenlab
+```
+
+2. **安装依赖**
+```bash
+npm install
+```
+
+3. **启动开发服务器**
+```bash
+npm run dev
+```
+
+4. **访问应用**
+打开浏览器访问 [http://localhost:3000](http://localhost:3000)
+
+## 📦 技术栈
+
+- **框架**: Next.js 16.1.6
+- **语言**: TypeScript
+- **样式**: TailwindCSS 4
+- **字体**: Geist Sans & Geist Mono
+
+## 🔗 链接
+
+- **GitHub**: https://github.com/eeantoss/edenlab
+- **在线演示**: （部署后更新）
+
+## 📝 许可
+
+MIT
+
+## 👨‍💻 作者
+
+Oscar
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
