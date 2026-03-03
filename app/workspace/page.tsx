@@ -2,13 +2,12 @@ export default function WorkspacePage() {
   return (
     <div style={{
       width: '100vw',
-      height: '100svh',
+      minHeight: '100svh',
       margin: 0,
       padding: 0,
       background: '#1a1a2e',
       display: 'flex',
       flexDirection: 'column',
-      overflow: 'auto'
     }}>
       <iframe
         src="/office/office.html"

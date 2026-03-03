@@ -17,8 +17,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   /* iOS 惯性滚动 */
   -webkit-overflow-scrolling: touch;
-  /* 防止水平溢出 */
-  overflow-x: hidden;
+  /* 防止水平溢出，用 clip 而非 hidden，不影响滚动上下文 */
+  overflow-x: clip;
   overflow-y: auto;
 }
 
