@@ -2,24 +2,25 @@ export default function WorkspacePage() {
   return (
     <div style={{
       width: '100vw',
-      height: '100svh',
+      minHeight: '100svh',
       margin: 0,
       padding: 0,
       background: '#1a1a2e',
       display: 'flex',
       flexDirection: 'column',
-      overflow: 'hidden',
+      overflowX: 'hidden',
+      overflowY: 'auto',
     }}>
       <iframe
         src="/office/office.html"
         style={{
           width: '100%',
-          height: '100%',
+          minHeight: '200vh',
           border: 'none',
           display: 'block',
-          flex: 1,
+          flexShrink: 0,
         }}
-        scrolling="no"
+        scrolling="yes"
         title="迪恩·温彻斯特的像素办公室"
       />
     </div>

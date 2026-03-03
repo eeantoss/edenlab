@@ -45,12 +45,6 @@ const config = {
   height: LAYOUT.game.height,
   parent: 'game-container',
   pixelArt: true,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: LAYOUT.game.width,
-    height: LAYOUT.game.height,
-  },
   physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
   scene: { preload: preload, create: create, update: update }
 };
