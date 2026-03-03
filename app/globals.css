@@ -15,9 +15,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  /* iOS 惯性滚动 */
   -webkit-overflow-scrolling: touch;
-  /* 防止水平溢出，用 clip 而非 hidden，不影响滚动上下文 */
   overflow-x: clip;
   overflow-y: auto;
 }
@@ -26,9 +24,4 @@ body {
 * {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
-}
-
-/* 所有带 overflow 的容器都开启 iOS 惯性滚动 */
-div, section, main, article, aside {
-  -webkit-overflow-scrolling: touch;
 }
