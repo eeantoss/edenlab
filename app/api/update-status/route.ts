@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { revalidateTag } from 'next/cache'
 
 // Secret token for authentication
 const STATUS_SECRET = process.env.STATUS_SECRET || 'default-secret-change-in-production'
@@ -81,8 +80,7 @@ export async function POST(req: NextRequest) {
     }
 
     // TODO: 添加 Vercel KV 存储
-    // 暂时只更新缓存，实际部署时需要在 Vercel 项目设置中添加 KV 数据库
-    revalidateTag('edenlab-status')
+    // 暂时只返回成功，实际部署时需要在 Vercel 项目设置中添加 KV 数据库
 
     return NextResponse.json({
       success: true,
