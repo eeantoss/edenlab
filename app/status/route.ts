@@ -8,20 +8,23 @@ export const revalidate = 0
 
 export async function GET() {
   try {
-    // 加时间戳防缓存
     const res = await fetch(`${RAW_BASE}/dean-status.json?t=${Date.now()}`, {
       next: { revalidate: 0 },
       headers: { 'Cache-Control': 'no-cache' }
     })
     if (res.ok) {
       const data = await res.json()
-      return NextResponse.json(data, {
+      return NextResponse.json({
+        ...data,
+        detail: data.detail || data.message || '待命中...',
+        message: data.message || data.detail || '待命中...',
+      }, {
         headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' }
       })
     }
   } catch {}
   return NextResponse.json(
-    { state: 'idle', message: '等待命令...', updatedAt: new Date().toISOString() },
+    { state: 'idle', detail: '待命中...', message: '待命中...', updatedAt: new Date().toISOString() },
     { headers: { 'Cache-Control': 'no-store' } }
   )
 }
@@ -34,7 +37,8 @@ export async function POST(req: Request) {
     }
     const content = JSON.stringify({
       state: body.state || 'idle',
-      message: body.message || '',
+      detail: body.message || body.detail || '',
+      message: body.message || body.detail || '',
       updatedAt: new Date().toISOString()
     })
     await fetch(`https://api.github.com/gists/${GIST_ID}`, {

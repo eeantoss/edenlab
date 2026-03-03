@@ -64,7 +64,8 @@ function SkillCard({ skill, onClick }: { skill: Skill; onClick: () => void }) {
 
       {/* 描述 */}
       <div style={{ color: '#9ca3af', fontSize: 13, lineHeight: 1.6,
-        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+        flexGrow: 1 }}>
         {skill.description}
       </div>
 
