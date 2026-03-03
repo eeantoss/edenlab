@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// GitHub Gist 配置
+const GIST_ID = process.env.GIST_ID || ''
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
+
 // Secret token for authentication
 const STATUS_SECRET = process.env.STATUS_SECRET || 'default-secret-change-in-production'
 
@@ -79,14 +83,59 @@ export async function POST(req: NextRequest) {
       clientIP: req.headers.get('x-forwarded-for') || 'unknown'
     }
 
-    // TODO: 添加 Vercel KV 存储
-    // 暂时只返回成功，实际部署时需要在 Vercel 项目设置中添加 KV 数据库
+    // 存储到 GitHub Gist
+    if (!GIST_ID || !GITHUB_TOKEN) {
+      console.warn('Gist not configured, using fallback (status not persisted)')
+      return NextResponse.json({
+        success: true,
+        status: status,
+        message: 'Status updated (not persisted - configure GIST_ID and GITHUB_TOKEN)',
+        warning: 'Gist not configured'
+      })
+    }
 
-    return NextResponse.json({
-      success: true,
-      status: status,
-      message: 'Status updated successfully'
-    })
+    try {
+      const content = JSON.stringify(status, null, 2)
+
+      const gistRes = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+          files: {
+            'edenlab-status.json': {
+              content: content
+            }
+          }
+        })
+      })
+
+      if (!gistRes.ok) {
+        const errorText = await gistRes.text()
+        console.error('Gist update failed:', errorText)
+        return NextResponse.json(
+          { error: 'Failed to update Gist', details: errorText },
+          { status: 500 }
+        )
+      }
+
+      return NextResponse.json({
+        success: true,
+        status: status,
+        message: 'Status updated successfully',
+        storedIn: 'GitHub Gist'
+      })
+
+    } catch (error) {
+      console.error('Error updating Gist:', error)
+      return NextResponse.json(
+        { error: 'Gist update failed', details: String(error) },
+        { status: 500 }
+      )
+    }
 
   } catch (error) {
     console.error('Error processing request:', error)
