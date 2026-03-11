@@ -11,7 +11,7 @@ export default function WorkspacePage() {
   // 读取状态
   const fetchStatus = async () => {
     try {
-      const res = await fetch('/api/star-office-status?' + Date.now())
+      const res = await fetch('/api/star-office-status', { cache: 'no-store' })
       const data = await res.json()
       setStatus(data)
     } catch (err) {
