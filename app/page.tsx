@@ -344,6 +344,7 @@ export default function Home() {
       <section style={{ padding: '0 20px 20px', maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ fontSize: 11, color: '#4b5563', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>工具集</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
+          <ToolCard icon="🏢" title="像素办公室" desc="多 AI 协作看板 · 状态可视化 · 昨日小记" href="/workspace" badge="LIVE" />
           <ToolCard icon="🛠️" title="Web3 Skills" desc="精选 OpenClaw Skills，含安全评级" href="/skills" badge="UPDATED" />
         </div>
       </section>
