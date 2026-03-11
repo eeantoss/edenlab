@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse, NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 declare global {
   var edenLabState: { state: string; message: string } | null;
@@ -7,16 +7,17 @@ declare global {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { state, message, code } = body;
-    
-    globalThis.edenLabState = { state, message };
-    return NextResponse.json({ ok: true, state, message });
-  } catch (err) {
+    globalThis.edenLabState = { 
+      state: body.state || 'unknown', 
+      message: body.message || '' 
+    };
+    return NextResponse.json({ ok: true });
+  } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 }
 
 export async function GET() {
-  const current = globalThis.edenLabState || { state: 'unknown', message: 'N/A' };
-  return NextResponse.json(current);
+  const state = globalThis.edenLabState || { state: 'unknown', message: 'N/A' };
+  return NextResponse.json(state);
 }
