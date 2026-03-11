@@ -7,12 +7,10 @@ declare global {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    globalThis.edenLabState = { 
-      state: body.state || 'unknown', 
-      message: body.message || '' 
-    };
-    return NextResponse.json({ ok: true });
-  } catch {
+    const { state, message } = body;
+    globalThis.edenLabState = { state: state || 'unknown', message: message || '' };
+    return NextResponse.json({ ok: true, state, message });
+  } catch (error) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 }
