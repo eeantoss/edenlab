@@ -3301,7 +3301,7 @@
             const out = document.getElementById('asset-upload-result');
             try {
                 const selectedPath = (selectedAssetInfo && selectedAssetInfo.path) ? selectedAssetInfo.path : '';
-                const res = await fetch('/assets/list?t=' + Date.now(), { cache: 'no-store' });
+                const res = await fetch('/api/assets/list?t=' + Date.now(), { cache: 'no-store' });
                 const data = await res.json();
                 assetListData = data.items || [];
 
@@ -4817,7 +4817,7 @@ function toggleBrokerPanel() {
 
             // 动态探测 flowers 精灵表帧规格（避免写死 65x65 导致显示比例异常）
             try {
-                const res = await fetch('/assets/list?t=' + Date.now(), { cache: 'no-store' });
+                const res = await fetch('/api/assets/list?t=' + Date.now(), { cache: 'no-store' });
                 const data = await res.json();
                 if (data && data.ok && Array.isArray(data.items)) {
                     const flowerItem = data.items.find(it => (it.path || '').toLowerCase().includes('flowers-bloom-v2'));
