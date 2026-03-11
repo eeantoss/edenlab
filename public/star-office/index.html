@@ -1769,7 +1769,7 @@
                     body: JSON.stringify({ password: val })
                 });
                 const data = await res.json();
-                if (data && data.ok) {
+                if (data  && data.success ) {
                     assetDrawerAuthed = true;
                     if (msg) msg.textContent = '✅ 验证通过';
                     updateAssetAuthUI();
@@ -2167,7 +2167,7 @@
                 try {
                     const res = await fetch('/assets/positions?t=' + Date.now(), { cache: 'no-store' });
                     const data = await res.json();
-                    if (data && data.ok && data.items) serverPositions = data.items;
+                    if (data  && data.success  && data.items) serverPositions = data.items;
                 } catch (e) {}
                 try {
                     const res2 = await fetch('/assets/defaults?t=' + Date.now(), { cache: 'no-store' });
@@ -2856,7 +2856,7 @@ function toggleBrokerPanel() {
 
                 const res = await fetch('/config/gemini', { cache: 'no-store' });
                 const data = await res.json();
-                if (data && data.ok) {
+                if (data  && data.success ) {
                     window.geminiConfig = {
                         hasKey: !!data.has_api_key,
                         model: data.gemini_model || 'nanobanana-pro'
@@ -3124,7 +3124,7 @@ function toggleBrokerPanel() {
             } else {
                 try {
                     const data = await fetchJsonSafe('/assets/home-favorites/list', { cache: 'no-store' });
-                    if (data && data.ok && Array.isArray(data.items)) {
+                    if (data  && data.success  && Array.isArray(data.items)) {
                         homeFavoritesCache = data.items;
                         homeFavoritesLoadedAt = now;
                     }
@@ -3928,7 +3928,7 @@ function toggleBrokerPanel() {
                 try {
                     const res = await fetch('/api/assets/list?t=' + Date.now(), { cache: 'no-store' });
                     const data = await res.json();
-                    if (data && data.ok && Array.isArray(data.items)) {
+                    if (data  && data.success  && Array.isArray(data.items)) {
                         const flowerItem = data.items.find(it => (it.path || '').toLowerCase().includes('flowers-bloom-v2'));
                         if (flowerItem && Number(flowerItem.width) > 0 && Number(flowerItem.height) > 0) {
                             // 固定规则：花朵单帧 128x128，4x4
