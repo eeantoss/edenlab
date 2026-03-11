@@ -1,12 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
-  return NextResponse.json({ authenticated: false });
-}
+const VALID_CODE = '2681196279';
 
 export async function POST(request: NextRequest) {
-  // Let's parse request JSON
-  const body = await request.json();
-  console.log('POST body:', body);
-  return NextResponse.json({ success: true, message: 'OK' });
+  try {
+    const body = await request.json();
+    const { password, code } = body;
+
+    const submitted = password || code;
+    const authenticated = submitted === VALID_CODE;
+    return NextResponse.json({ 
+      success: authenticated,
+      authenticated: authenticated 
+    });
+  } catch (err) {
+    return NextResponse.json({ success: false, message: 'Invalid request' }, { status: 400 });
+  }
+}
+
+export async function GET() {
+  return NextResponse.json({ authenticated: false });
 }
