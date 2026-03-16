@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  return NextResponse.json({ assets: [] });
+  return NextResponse.json({
+    ok: true,
+    items: [],
+    assets: [],
+  });
 }

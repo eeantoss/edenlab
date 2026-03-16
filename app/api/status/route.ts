@@ -1,4 +1,6 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
+import { getOfficeState } from '@/app/lib/office-state';
+
 export async function GET() {
-  return Response.json({ status: 'ok' })
+  return NextResponse.json(getOfficeState());
 }
