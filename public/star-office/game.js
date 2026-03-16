@@ -62,9 +62,14 @@ async function loadMemo() {
     const response = await fetch('/yesterday-memo?t=' + Date.now(), { cache: 'no-store' });
     const data = await response.json();
 
-    if (data.success && data.memo) {
+    const memoText = data.memo || data.content ||
+      (Array.isArray(data.points) && data.points.length
+        ? [...data.points.map((p) => `· ${p}`), data.poem ? `\n「${String(data.poem).replace(/^「|」$/g, '')}」` : ''].filter(Boolean).join('\n')
+        : '');
+
+    if ((data.success || memoText) && memoText) {
       memoDate.textContent = data.date || '';
-      memoContent.innerHTML = data.memo.replace(/\n/g, '<br>');
+      memoContent.innerHTML = memoText.replace(/\n/g, '<br>');
     } else {
       memoContent.innerHTML = '<div id="memo-placeholder">暂无昨日日记</div>';
     }
