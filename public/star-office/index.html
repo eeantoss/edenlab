@@ -1196,13 +1196,7 @@
         </div>
     </div>
     
-    <div id="main-stage">
-        <div id="game-container">
-            <div id="game-skeleton"><div class="hint">正在进入像素办公室…</div></div>
-            <div id="status-text">加载中...</div>
-        </div>
-    
-    <!-- 昨日小记浮层 - 页面左上角 -->
+    <!-- 昨日小记浮层 - 页面左上角（game-container 外部） -->
     <div id="memo-panel">
         <div id="memo-title">昨 日 小 记</div>
         <div id="memo-date"></div>
@@ -1212,6 +1206,12 @@
         </div>
         <div class="memo-decoration">─ ─ ─ ─ ─</div>
     </div>
+
+    <div id="main-stage">
+        <div id="game-container">
+            <div id="game-skeleton"><div class="hint">正在进入像素办公室…</div></div>
+            <div id="status-text">加载中...</div>
+        </div>
 
     <!-- 底部面板容器 -->
     <div id="bottom-panels">
