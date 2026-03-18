@@ -835,10 +835,10 @@
         }
         /* Memo 区域 - 4:3 小正方形 */
         #memo-panel {
-            position: absolute;
+            position: fixed;
             top: 12px;
             left: 12px;
-            z-index: 100;
+            z-index: 1000;
             width: 320px;
             height: auto;
             max-height: 360px;
@@ -1200,18 +1200,19 @@
         <div id="game-container">
             <div id="game-skeleton"><div class="hint">正在进入像素办公室…</div></div>
             <div id="status-text">加载中...</div>
-            <!-- 昨日小记浮层 - 左上角 -->
-            <div id="memo-panel">
-                <div id="memo-title">昨 日 小 记</div>
-                <div id="memo-date"></div>
-                <div class="memo-decoration">─ ─ ─ ─ ─</div>
-                <div id="memo-content">
-                    <div id="memo-placeholder">加载中...</div>
-                </div>
-                <div class="memo-decoration">─ ─ ─ ─ ─</div>
-            </div>
         </div>
     
+    <!-- 昨日小记浮层 - 页面左上角 -->
+    <div id="memo-panel">
+        <div id="memo-title">昨 日 小 记</div>
+        <div id="memo-date"></div>
+        <div class="memo-decoration">─ ─ ─ ─ ─</div>
+        <div id="memo-content">
+            <div id="memo-placeholder">加载中...</div>
+        </div>
+        <div class="memo-decoration">─ ─ ─ ─ ─</div>
+    </div>
+
     <!-- 底部面板容器 -->
     <div id="bottom-panels">
         
