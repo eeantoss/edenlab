@@ -319,7 +319,7 @@ export default function Home() {
       {/* 标题区 */}
       <section style={{ padding: '24px 20px 12px', textAlign: 'center' }}>
         <h1 style={{ fontSize: 'clamp(20px, 4vw, 36px)', fontWeight: 700, marginBottom: 8 }}>
-          东之伊甸的{' '}
+          杨旭的{' '}
           <span style={{ background: 'linear-gradient(to right, #00ff88, #00aaff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             AI & Web3
           </span>

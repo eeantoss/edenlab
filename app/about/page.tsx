@@ -17,7 +17,7 @@ export default function About() {
         <h1 className="text-3xl font-bold mb-8">关于 EdenLab</h1>
         <div className="space-y-6 text-gray-300 leading-relaxed">
           <p>
-            EdenLab 是东之伊甸的个人工具站，聚焦 <span className="text-emerald-400">Web3</span> 与 <span className="text-emerald-400">AI</span> 的交叉地带。
+            EdenLab 是杨旭的个人工具站，聚焦 <span className="text-emerald-400">Web3</span> 与 <span className="text-emerald-400">AI</span> 的交叉地带。
           </p>
           <p>
             主要方向：Solana 链上聪明钱追踪、Meme 代币数据分析、AI 辅助决策工具。
