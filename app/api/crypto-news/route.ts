@@ -32,11 +32,11 @@ export async function GET() {
 
     const json = await res.json();
     const articles = (json.data || []).map((item: Record<string, unknown>) => ({
-      title: item.title || '',
-      source: item.source || '',
-      url: item.url || '',
-      sentiment: item.sentiment || item.score || null,
-      published_at: item.published_at || item.publishedAt || item.created_at || '',
+      title: (item.text as string || '').replace(/<br\/>/g, ' ').substring(0, 200),
+      source: item.newsType || '',
+      url: item.link || '',
+      coins: Array.isArray(item.coins) ? (item.coins as Array<{symbol: string}>).map(c => c.symbol).filter((v, i, a) => a.indexOf(v) === i).slice(0, 5) : [],
+      published_at: item.ts || '',
     }));
 
     const data = { articles, updated_at: new Date().toISOString() };

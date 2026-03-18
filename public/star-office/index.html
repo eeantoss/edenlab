@@ -1749,10 +1749,11 @@
                 list.innerHTML = d.articles.map(function(a) {
                     const time = a.published_at ? new Date(a.published_at).toLocaleString() : '';
                     const src = a.source ? ' · ' + a.source : '';
+                    const coins = a.coins && a.coins.length ? ' · ' + a.coins.join('/') : '';
                     const link = a.url ? ' href="' + a.url + '" target="_blank"' : '';
                     return '<div class="news-item">' +
                         '<a class="news-item-title"' + link + '>' + (a.title || 'Untitled') + '</a>' +
-                        '<div class="news-item-meta">' + time + src + '</div>' +
+                        '<div class="news-item-meta">' + time + src + coins + '</div>' +
                         '</div>';
                 }).join('');
             } catch (e) {
