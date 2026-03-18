@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EdenLab - 东之伊甸",
+  title: "百万员工的办公室",
   description: "AI & Web3 工具站",
 };
 
