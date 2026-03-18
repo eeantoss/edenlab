@@ -955,6 +955,51 @@
             flex-shrink: 0;
         }
 
+        /* Polygon 链上数据面板 */
+        #polygon-panel {
+            background: rgba(0, 0, 0, 0.78);
+            border: 2px solid #22c55e;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: ArkPixel, monospace;
+            min-width: 200px;
+            max-width: 240px;
+            image-rendering: pixelated;
+        }
+        #polygon-title {
+            color: #22c55e;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .poly-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 0;
+        }
+        .poly-label {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+        .poly-val {
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .poly-time {
+            justify-content: center;
+            margin-top: 6px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 4px;
+        }
+        .poly-time span {
+            color: #666;
+            font-size: 10px;
+        }
+
         /* 手机端专属适配（不影响桌面） */
         @media (max-width: 900px), (pointer: coarse) {
             html, body {
@@ -1177,6 +1222,17 @@
                 <div style="color:#9ca3af;font-size:12px;text-align:center;padding:20px 0;">正在加载访客...</div>
             </div>
             </div>
+
+        <!-- Polygon 链上数据面板 -->
+        <div id="polygon-panel">
+            <div id="polygon-title">⛓ Polygon</div>
+            <div id="polygon-data-content">
+                <div class="poly-row"><span class="poly-label">区块</span><span id="poly-block" class="poly-val">--</span></div>
+                <div class="poly-row"><span class="poly-label">Gas</span><span id="poly-gas" class="poly-val">-- Gwei</span></div>
+                <div class="poly-row"><span class="poly-label">Chain</span><span id="poly-chain" class="poly-val">137</span></div>
+                <div class="poly-row poly-time"><span id="poly-updated">--</span></div>
+            </div>
+        </div>
         </div>
     </div>
     
@@ -1571,6 +1627,32 @@
                 memoContent.innerHTML = '<div id="memo-placeholder">加载失败</div>';
             }
         }
+
+        // --- Polygon 链上数据加载 ---
+        async function loadPolygonData() {
+            try {
+                const resp = await fetch('/api/polygon-data?t=' + Date.now(), { cache: 'no-store' });
+                const d = await resp.json();
+                if (d.error) {
+                    document.getElementById('poly-block').textContent = 'ERR';
+                    document.getElementById('poly-gas').textContent = '--';
+                    document.getElementById('poly-updated').textContent = d.error;
+                    return;
+                }
+                document.getElementById('poly-block').textContent = d.block ? d.block.toLocaleString() : '--';
+                document.getElementById('poly-gas').textContent = d.gas_gwei ? d.gas_gwei + ' Gwei' : '--';
+                document.getElementById('poly-chain').textContent = d.chain_id || '137';
+                if (d.updated_at) {
+                    const dt = new Date(d.updated_at);
+                    document.getElementById('poly-updated').textContent = dt.toLocaleTimeString();
+                }
+            } catch (e) {
+                console.error('Polygon data fetch failed:', e);
+                document.getElementById('poly-block').textContent = 'ERR';
+            }
+        }
+        loadPolygonData();
+        setInterval(loadPolygonData, 30000);
 
         // 更新加载进度
         function updateLoadingProgress() {
