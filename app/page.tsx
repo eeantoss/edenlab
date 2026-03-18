@@ -352,7 +352,7 @@ export default function Home() {
       {/* 底部留言板+日记+在线 */}
       <footer style={{ borderTop: '1px solid #1a2a1a', padding: '16px 20px', textAlign: 'center' }}>
         <OnlineStats />
-        <div style={{ marginTop: 8, fontSize: 12, color: '#4b5563' }}>© 2026 EdenLab · Built by 东之伊甸</div>
+        <div style={{ marginTop: 8, fontSize: 12, color: '#4b5563' }}>© 2026 百万员工的办公室 · Built by 杨旭</div>
       </footer>
     </main>
   )
